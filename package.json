@@ -1,0 +1,29 @@
+{
+  "name": "tovia-encrypter",
+  "version": "1.0.0",
+  "description": "This is a simple app build in React and NodeJS that takes an input string and an expiration date and encrypts it. It also offers a decrypter to retrieve the message. It was created by Teddy Hays to show his development skills for employment evaluation with Tovia.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Teddy Hays",
+  "license": "MIT",
+  "dependencies": {
+    "css-loader": "^0.28.7",
+    "express": "^4.15.4",
+    "node-sass": "^4.5.3",
+    "react": "^15.6.1",
+    "react-css-modules": "^4.7.1",
+    "react-dom": "^15.6.1",
+    "react-toolbox": "^2.0.0-beta.12",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.6.0"
+  }
+}
