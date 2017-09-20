@@ -2,7 +2,10 @@
 
 
 module.exports = {
-	entry:'./www/app.jsx',
+	entry:[
+		'whatwg-fetch',
+		'./www/app.jsx',
+	],
 	output: {
 		path: __dirname,
 		filename: './www/bundle.js',
