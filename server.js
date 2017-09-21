@@ -2,7 +2,6 @@ var process = require("process");
 var express = require("express");
 var bodyParser = require('body-parser');
 var encrypter = require('object-encrypter');
-var engine = encrypter('|uNTR5m5dp1:[d7h?rflL6]v>N;t*z&#Cu8yD@^#1TbY(Hynrt]Sjs"&=h,7WR', {ttl: true});
 
 var app = express();
 
@@ -35,6 +34,8 @@ process.stdin.on("data",function(data) {
 
 function encrypt(request) {
 
+	var engine = encrypter(request.password, {ttl: true});
+
 	var t1 = new Date();
 	
 	var t2 = request.date2.split(/\D+/);
@@ -51,7 +52,19 @@ function encrypt(request) {
 }
 
 function decrypt(request) {
-	return {
-		data:engine.decrypt(request.message)
+	var engine = encrypter(request.password, {ttl: true});
+	
+	try {
+		var data = engine.decrypt(request.message);
+		return {
+			success:true,
+			data:engine.decrypt(request.message)
+		}
+	} catch(e) {
+		return {
+			success:false,
+			data:null
+		}
 	}
+	
 }
