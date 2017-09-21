@@ -1,14 +1,18 @@
-// see https://facebook.github.io/react/docs/forms.html for form documentation
-
 import React from 'react';
+
+// react-toolbox components
 import Input from 'react-toolbox/lib/input';
 import Button from 'react-toolbox/lib/button';
 import DatePicker from 'react-toolbox/lib/date_picker';
 import Dialog from 'react-toolbox/lib/dialog';
+
+// clipboard component
 import copy from 'copy-to-clipboard';
 
+// random string generator component
 var randomstring = require("randomstring");
 
+// set up initial variables
 var today = new Date();
 var ms = today.getTime() + 86400000;
 var tomorrow = new Date(ms);
@@ -51,6 +55,24 @@ class ToviaForm extends React.Component {
   		
   	}
   	
+	/*
+  	*
+  	*			componentDidMount(): called when the component mounts for the first time - used to check password
+  	*
+  	*/
+	componentDidMount() {
+		if(!this.state.password) {
+			var password = randomstring.generate(5);
+			window.history.replaceState(null, null, "#"+password);
+			this.setState({password:password});
+		}
+	}
+  	
+  	/*
+  	*
+  	*			handleDialogToggle(): used when the encrypt/decrypt popup is opening or closing
+  	*
+  	*/
   	handleDialogToggle() {
   	
   		// if opening window, empty input
@@ -66,6 +88,11 @@ class ToviaForm extends React.Component {
 		});
 	}
 	
+  	/*
+  	*
+  	*			handleDialogFailureToggle(): used when the encrypt/decrypt failure notification popup is opening or closing
+  	*
+  	*/
 	handleDialogFailureToggle() {
   		// open/close dialog
   		if(!this.state.dialogFailureActive) {
@@ -82,7 +109,11 @@ class ToviaForm extends React.Component {
 		
 	}
 	
-	
+	/*
+  	*
+  	*			handleChange(): called when any input in the form changes to maintain state data
+  	*
+  	*/
 	handleChange(name,value) {
 	
 		// updating an input in the form
@@ -92,6 +123,11 @@ class ToviaForm extends React.Component {
 		
 	}
 	
+	/*
+  	*
+  	*			handleDecrypt(): used when the decrypt button is pressed, decrypts message
+  	*
+  	*/
 	handleDecrypt() {
 		
 		var encrypted = this.state.dialogMultiline;
@@ -136,10 +172,14 @@ class ToviaForm extends React.Component {
 				});
 			}
 		});
-		
-		
 	}
 	
+	
+	/*
+  	*
+  	*			handleSubmit(): used when the encrypt form is submitted, encrypting the object and displaying the dialog with the encrypted message
+  	*
+  	*/
 	handleSubmit(e) {
 	    e.preventDefault();
 	    
@@ -169,14 +209,12 @@ class ToviaForm extends React.Component {
 		});
 	}
 	
-	componentDidMount() {
-		if(!this.state.password) {
-			var password = randomstring.generate(5);
-			window.history.replaceState(null, null, "#"+password);
-			this.setState({password:password});
-		}
-	}
-	
+
+	/*
+  	*
+  	*			passwordCopy(): copies the current password to the clipboard and displays success message
+  	*
+  	*/
 	passwordCopy() {
 		copy(this.state.password);
 		this.setState({copyTooltipText:"Password copied!"});
@@ -187,12 +225,23 @@ class ToviaForm extends React.Component {
 		},5000);
 	}
 	
+	/*
+  	*
+  	*			passwordGenerate(): creates a new random password
+  	*
+  	*/
 	passwordGenerate() {
 		var password = randomstring.generate(5);
 		window.history.replaceState(null, null, "#"+password);
 		this.setState({password:password});
 	}
 	
+	
+	/*
+  	*
+  	*			render()
+  	*
+  	*/
 	render() {
 		return (
 			<div id="tovias-enigma">
